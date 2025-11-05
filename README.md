@@ -1,3 +1,6 @@
+[![Secret leak guard](https://github.com/<owner>/pulse-guard-pack/actions/workflows/self_test.yml/badge.svg)](…)
+
+
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
 
 > **Purpose.** Prevent accidental API‑key commits with minimal friction.  
