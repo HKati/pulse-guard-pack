@@ -1,17 +1,12 @@
 name: Guard self-test
 
 on:
+  workflow_dispatch:
   pull_request:
-  push:
     branches: [ main ]
-
-permissions:
-  contents: read
 
 jobs:
   guard:
-    uses: eplabsai/pulse-guard-pack/.github/workflows/secret_guard.yml@v1
-    # optional: pass custom args, config
-    # with:
-    #   gitleaks_version: "v8.18.2"
-    #   extra_args: "--config-path .gitleaks.toml"
+    uses: ./.github/workflows/secret-leak-guard.yml
+    with:
+      fail-on-find: true
