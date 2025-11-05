@@ -1,4 +1,17 @@
-# Require review for CI workflows and configs
-.github/workflows/*   @HKati
-*.yml                 @HKati
-*.toml                @HKati
+
+chore: add CODEOWNERS for workflows & security configs
+
+Establish CODEOWNERS for critical paths to ensure review before merge.
+
+Why
+- auto-request review on workflow and security-sensitive changes
+- enables Branch protection: "Require review from Code Owners" (optional)
+- reduces risk of bypassing the secret-leak guard
+
+Coverage
+- .github/workflows/*
+- .gitleaks.toml
+- .pre-commit-config.yaml
+- SECURITY.md
+
+No runtime changes; governance/quality only.
