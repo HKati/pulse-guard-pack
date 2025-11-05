@@ -1,17 +1,11 @@
 
-chore: add CODEOWNERS for workflows & security configs
+# CODEOWNERS — kritikus workflowk és biztonsági konfigurációk
+# Súgó: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-Establish CODEOWNERS for critical paths to ensure review before merge.
+# GitHub Actions workflow-k
+.github/workflows/*      @HKati
 
-Why
-- auto-request review on workflow and security-sensitive changes
-- enables Branch protection: "Require review from Code Owners" (optional)
-- reduces risk of bypassing the secret-leak guard
-
-Coverage
-- .github/workflows/*
-- .gitleaks.toml
-- .pre-commit-config.yaml
-- SECURITY.md
-
-No runtime changes; governance/quality only.
+# Titokszivárgás-őrhöz kapcsolódó policyk/konfigok
+.gitleaks.toml           @HKati
+.pre-commit-config.yaml  @HKati
+SECURITY.md              @HKati
