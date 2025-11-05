@@ -1,0 +1,13 @@
+title = "PULSE guard pack — gitleaks config"
+
+[allowlist]
+paths = [
+  "tests/fixtures/",
+  "docs/examples/",
+  "examples/"
+]
+regexes = [
+  "(?i)BEGIN PUBLIC KEY",
+  "(?i)localhost(:\\d+)?",
+  "(?i)example\\.com"
+]
