@@ -249,3 +249,11 @@ Secrets leak most often by accident. A lightweight guard that is **default‑san
     jobs:
       guard:
         uses: eplabsai/pulse-guard-pack/.github/workflows/secret_guard.yml@v1
+
+
+## Maintainers & Contact
+
+Maintained by **EPLabsAI**.
+
+- 🐞 Issues & feature requests: [GitHub Issues](./issues)
+- 🔐 Security: see our [SECURITY.md](./SECURITY.md) and use GitHub **Private vulnerability reporting**.
