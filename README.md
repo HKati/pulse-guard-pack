@@ -17,6 +17,7 @@
 ![status](https://img.shields.io/badge/gh-actions-reusable%20workflow-brightgreen.svg)
 ![ecosystem](https://img.shields.io/badge/works%20with-GitHub%20%7C%20GitLab%20%7C%20Jenkins%20%7C%20Azure-6aa84f.svg)
 [![Security Policy](https://img.shields.io/badge/security-policy-blue)](./SECURITY.md)
+![guard status](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg)
 
 ---
 
