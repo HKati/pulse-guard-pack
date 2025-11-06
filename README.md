@@ -45,7 +45,6 @@ jobs:
       fail-on-find: true
       scan-history: false      # set true to scan full git history (slower)
 
-
 ---
 
 ## Configuration (optional but recommended)
