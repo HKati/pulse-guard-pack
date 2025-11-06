@@ -3,6 +3,12 @@
 
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
 
+<p align="center">
+  <img src="docs/hero.png"
+       alt="Pulse Guard Pack — boxed secrets & secret-leak guard (PULSE)"
+       width="900">
+</p>
+
 > **Purpose.** Prevent accidental API‑key commits with minimal friction.  
 > **Who for.** Any team adopting CI/CD (with or without GitHub Advanced Security).  
 > **Why now.** Secret leaks happen even to great teams. Shipping a *default‑sane*, opt‑in guard reduces risk without slowing velocity.
