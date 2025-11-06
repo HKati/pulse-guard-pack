@@ -2,7 +2,8 @@
 
 
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
-![guard status](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg)
+[![Preflight secret scan (private)](https://github.com/HKati/pulse-guard-pack/actions/workflows/preflight.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/preflight.yml)
+
 
 <p align="center">
   <img src="docs/hero.png"
