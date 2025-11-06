@@ -107,6 +107,10 @@ Install:
 - Inject as `${{ secrets.YOUR_KEY }}` at runtime.  
 - Never commit `.env` files; keep examples as `.env.example` with placeholders only.
 
+> Note: `security-events: write` is only required if you upload SARIF to
+> Code Scanning. For fast runs, keep `scan-history: false`; set it to `true`
+> to scan the full git history (slower).
+
 ---
 
 ## Advanced (optional)
@@ -249,7 +253,10 @@ Secrets leak most often by accident. A lightweight guard that is **default‑san
 
     jobs:
       guard:
-        uses: eplabsai/pulse-guard-pack/.github/workflows/secret_guard.yml@v1
+        uses: jobs:
+  guard:
+    uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+
 
 
 ## Maintainers & Contact
