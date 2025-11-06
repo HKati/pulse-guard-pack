@@ -166,16 +166,26 @@ Install:
 ### Jenkins (Declarative Pipeline)
 
     pipeline {
-      agent any
-      stages {
-        stage('Secret leak guard') {
-          steps {
-            sh 'curl -sSL https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks_$(uname -s)_$(uname -m).tar.gz | tar -xz'
-            sh './gitleaks detect --redact --no-git -s . --exit-code 1'
-          }
-        }
+  agent any
+  stages {
+    stage('Secret leak guard') {
+      steps {
+        sh '''
+          set -euo pipefail
+          ARCH=$(uname -m)
+          case "$ARCH" in
+            x86_64|amd64) ASSET=linux_x64 ;;
+            aarch64|arm64) ASSET=linux_arm64 ;;
+            *) echo "Unsupported arch: $ARCH" >&2; exit 2 ;;
+          esac
+          curl -sSL "https://github.com/zricethezav/gitleaks/releases/latest/download/gitleaks_${ASSET}.tar.gz" | tar -xz
+          ./gitleaks detect --redact --no-git -s . --exit-code 1
+        '''
       }
     }
+  }
+}
+
 
 ### Azure Pipelines
 
