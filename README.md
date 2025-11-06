@@ -26,24 +26,26 @@
 
 ## Quickstart (GitHub Actions — 1 line)
 
-Create: `.github/workflows/secret_guard.yml`
+Create: `.github/workflows/secret-leak-guard.yml`
 
 ```yaml
-name: Secret leak guard
+name: guard
 on:
-  push:
-    branches: [ main ]
   pull_request:
-
+    branches: [ main ]
 jobs:
   guard:
     permissions:
       contents: read
-      # security-events: write   # only if you upload SARIF to Code Scanning
+    # security-events: write  # only if you upload SARIF to Code Scanning
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
     with:
       fail-on-find: true
-      scan-history: false      # set true to scan full git history (slower)
+      scan-history: false
+```
+
+---
+
 
 ---
 
