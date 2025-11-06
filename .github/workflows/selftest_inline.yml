@@ -1,17 +1,14 @@
 name: Guard self-test (inline)
-on:
-  workflow_dispatch:
+on: { workflow_dispatch: {} }
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    permissions: { contents: read }
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
-
       - name: Run Gitleaks (inline)
         uses: gitleaks/gitleaks-action@v2
         with:
-          args: detect --redact --log-opts="--all" --report-format sarif --report-path gitleaks.sarif
+          args: detect --redact --log-opts="--all"
