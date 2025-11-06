@@ -1,0 +1,15 @@
+name: Guard (PR)
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  guard:
+    uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@main
+    with:
+      fail-on-find: true
+      scan-history: false
+      # Ha SARIF-et akarsz publikusan a Security/Code scanning alá, add hozzá:
+      # extra_args: "--report-format sarif --report-path gitleaks.sarif"
+      extra_args: ""
