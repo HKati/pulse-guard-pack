@@ -24,27 +24,27 @@
 
 ---
 
-## Quick start (GitHub Actions — 1 line)
+## Quickstart (GitHub Actions — 1 line)
 
-Create: `.github/workflows/secret_leak_guard.yml`
+Create: `.github/workflows/secret_guard.yml`
 
-    name: Secret leak guard
-    on:
-      pull_request:
-      push:
-        branches: [ main ]
+```yaml
+name: Secret leak guard
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  guard:
     permissions:
       contents: read
-    jobs:
-      guard:
-        uses: eplabsai/pulse-guard-pack/.github/workflows/secret_guard.yml@v1
-        # with:
-        #   gitleaks_version: v8.18.2      # optional
-        #   extra_args: "--config-path .gitleaks.toml"  # optional
+      # security-events: write   # only if you upload SARIF to Code Scanning
+    uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+    with:
+      fail-on-find: true
+      scan-history: false      # set true to scan full git history (slower)
 
-> **Toggle (optional).** If you want a UI switch: add  
-> `if: ${{ vars.PULSE_SECRET_GUARD != 'off' }}`  
-> to the calling job and set the repo variable in **Settings → Variables**.
 
 ---
 
