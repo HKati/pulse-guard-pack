@@ -1,16 +1,21 @@
-- name: Link check (lychee)
-  uses: lycheeverse/lychee-action@v1
-  with:
-    args: --verbose --no-include-verbatim --config .lychee.toml "docs/**/*.md" "README.md"
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+name: Docs link check
 
+on:
+  pull_request:
+    paths: ["docs/**", "README.md", ".lychee.toml"]
   push:
     branches: [ main ]
-    paths:
-      - "docs/**"
-      - "README.md"
-      - ".lychee.toml"
+    paths: ["docs/**", "README.md", ".lychee.toml"]
+  schedule:
+    - cron: "17 3 * * 1"   # Weekly, Mondays 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-lychee-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lychee:
