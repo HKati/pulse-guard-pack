@@ -42,4 +42,4 @@ runs:
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
         print(file)
         PY
-        echo "path=${file}" >> "$GITHUB_OUTPUT"
+        echo "path=${file}" >> "$GITHUB_OUTPUT" 
