@@ -7,11 +7,19 @@ on:
 permissions:
   contents: read
 
+
 jobs:
   selftest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout (single commit, stable)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+
+      - name: Prepare artifacts dir
+        run: mkdir -p artifacts
 
       - name: DPM start
         uses: ./.github/actions/dpm-minilog
@@ -19,18 +27,20 @@ jobs:
           event: "selftest_start"
           status: "success"
           data: '{"note":"hello"}'
+          path: "artifacts/pulse_dpm.jsonl"
 
       - name: Create artificial gap
         run: sleep 2
 
-      - name: Patch gaps
+      - name: Patch DPM gaps
         uses: ./.github/actions/memory-gap-patcher
         with:
           source: artifacts/pulse_dpm.jsonl
+          output: artifacts/pulse_dpm.patched.jsonl
           threshold_seconds: 1
 
-      - name: Upload DPM artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dpm-logs
-          path: artifacts/ 
+          path: artifacts/
