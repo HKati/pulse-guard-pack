@@ -1,11 +1,10 @@
-name: Docs link check
+- name: Link check (lychee)
+  uses: lycheeverse/lychee-action@v1
+  with:
+    args: --verbose --no-include-verbatim --config .lychee.toml "docs/**/*.md" "README.md"
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-on:
-  pull_request:
-    paths:
-      - "docs/**"
-      - "README.md"
-      - ".lychee.toml"
   push:
     branches: [ main ]
     paths:
