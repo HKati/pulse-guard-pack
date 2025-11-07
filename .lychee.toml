@@ -1,0 +1,12 @@
+# Base settings for link checking
+exclude = [
+  "^mailto:",
+  "^tel:",
+  "^#",
+  "localhost",
+  "127.0.0.1"
+]
+
+max-concurrency = 8
+timeout = 20
+github = true
