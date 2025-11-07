@@ -39,7 +39,7 @@ runs:
         rec = {"ts": ts, "event": event, "status": status, **extra}
         os.makedirs(os.path.dirname(file), exist_ok=True)
         with open(file, "a", encoding="utf-8") as f:
-            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n") 
         print(file)
         PY
         echo "path=${file}" >> "$GITHUB_OUTPUT" 
