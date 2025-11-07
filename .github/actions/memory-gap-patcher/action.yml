@@ -1,0 +1,62 @@
+name: "Memory Gap Patcher"
+description: "Idősor-naplóban (DPM JSONL) kimaradt szakaszok jelölése gap rekorddal."
+inputs:
+  source:
+    description: "Forrás JSONL (DPM)"
+    required: false
+    default: "artifacts/pulse_dpm.jsonl"
+  output:
+    description: "Kimeneti JSONL (patched)"
+    required: false
+    default: "artifacts/pulse_dpm.patched.jsonl"
+  threshold_seconds:
+    description: "Küszöb (ennél nagyobb rés esetén beszúrunk 'gap'-et)"
+    required: false
+    default: "90"
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        src='${{ inputs.source }}'
+        out='${{ inputs.output }}'
+        thr='${{ inputs.threshold_seconds }}'
+        mkdir -p "$(dirname "$out")"
+        python - <<'PY' "$src" "$out" "$thr"
+        import sys, json, datetime as dt, os
+        src, out, thr = sys.argv[1], sys.argv[2], int(sys.argv[3])
+        def parse_ts(s):
+            # 2025-01-02T03:04:05Z
+            return dt.datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+        recs = []
+        if os.path.exists(src):
+            with open(src, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        try:
+                            recs.append(json.loads(line))
+                        except Exception:
+                            pass
+        recs.sort(key=lambda r: r.get("ts", ""))
+        patched = []
+        for i, r in enumerate(recs):
+            patched.append(r)
+            if i+1 < len(recs):
+                t1 = parse_ts(r["ts"])
+                t2 = parse_ts(recs[i+1]["ts"])
+                gap = int((t2 - t1).total_seconds())
+                if gap > thr:
+                    patched.append({
+                        "ts": t1.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "event": "gap",
+                        "status": "patched",
+                        "gap_seconds": gap,
+                        "from": r["ts"],
+                        "to": recs[i+1]["ts"]
+                    })
+        with open(out, "w", encoding="utf-8") as f:
+            for r in patched:
+                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        PY
+        echo "Patched log → ${out}"
