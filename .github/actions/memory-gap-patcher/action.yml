@@ -59,4 +59,4 @@ runs:
             for r in patched:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
         PY
-        echo "Patched log → ${out}"
+        echo "Patched log → ${out}" 
