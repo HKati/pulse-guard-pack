@@ -20,6 +20,12 @@
 ![ecosystem](https://img.shields.io/badge/works%20with-GitHub%20%7C%20GitLab%20%7C%20Jenkins%20%7C%20Azure-6aa84f.svg)
 [![Security Policy](https://img.shields.io/badge/security-policy-blue)](./SECURITY.md)
 
+
+[![Docs link check](https://github.com/HKati/pulse-guard-pack/actions/workflows/docs-link-check.yml/badge.svg)](./.github/workflows/docs-link-check.yml)
+[![Release](https://img.shields.io/github/v/release/HKati/pulse-guard-pack)](../../releases)
+
+See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
+
 ---
 
 ## Features at a glance
