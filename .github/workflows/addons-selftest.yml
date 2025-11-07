@@ -1,0 +1,36 @@
+name: Add-ons self-test
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DPM start
+        uses: ./.github/actions/dpm-minilog
+        with:
+          event: "selftest_start"
+          status: "success"
+          data: '{"note":"hello"}'
+
+      - name: Create artificial gap
+        run: sleep 2
+
+      - name: Patch gaps
+        uses: ./.github/actions/memory-gap-patcher
+        with:
+          source: artifacts/pulse_dpm.jsonl
+          threshold_seconds: 1
+
+      - name: Upload DPM artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dpm-logs
+          path: artifacts/
