@@ -1,0 +1,45 @@
+name: "DPM Minilog"
+description: "Egyszerű JSONL audit napló (ts, event, status, data)."
+inputs:
+  event:
+    description: "Esemény neve"
+    required: true
+  status:
+    description: "Állapot (success/failure/…)"
+    required: true
+  data:
+    description: "Opcionális JSON string extra adatokkal (pl. toJson(...))"
+    required: false
+    default: "{}"
+  path:
+    description: "JSONL napló útvonala"
+    required: false
+    default: "artifacts/pulse_dpm.jsonl"
+outputs:
+  path:
+    description: "A létrehozott/appendelt napló elérési útja"
+    value: ${{ steps.make.outputs.path }}
+runs:
+  using: "composite"
+  steps:
+    - id: make
+      shell: bash
+      run: |
+        set -euo pipefail
+        file='${{ inputs.path }}'
+        mkdir -p "$(dirname "$file")"
+        ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+        python - <<'PY' "$file" "$ts" '${{ inputs.event }}' '${{ inputs.status }}' '${{ inputs.data }}'
+        import sys, json, os
+        file, ts, event, status, data = sys.argv[1:]
+        try:
+            extra = json.loads(data)
+        except Exception:
+            extra = {"_raw": data}
+        rec = {"ts": ts, "event": event, "status": status, **extra}
+        os.makedirs(os.path.dirname(file), exist_ok=True)
+        with open(file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        print(file)
+        PY
+        echo "path=${file}" >> "$GITHUB_OUTPUT"
