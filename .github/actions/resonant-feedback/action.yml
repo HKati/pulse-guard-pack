@@ -1,60 +1,89 @@
 name: "Resonant Feedback Hook"
-description: "Egészség-endpoint visszaigazolás: flapping csillapítása (N egymásutáni OK szükséges)."
+description: "Health endpoint verification: suppress flapping by requiring N consecutive healthy responses. Supports custom headers and expected HTTP status."
+
 inputs:
   url:
     description: "Health URL"
     required: true
   method:
-    description: "HTTP metódus"
+    description: "HTTP method"
     required: false
     default: "GET"
   success_pattern:
-    description: "Regex, ami az egészséges választ jelzi (pl. '\"status\":\"ok\"')"
+    description: "Regex that must match a healthy response body (e.g., '\"status\":\"ok\"')"
     required: true
   tries:
-    description: "Összes próbálkozás"
+    description: "Total attempts"
     required: false
     default: "5"
   interval_seconds:
-    description: "Köztes várakozás (s)"
+    description: "Delay between attempts (seconds)"
     required: false
     default: "5"
   consecutive_required:
-    description: "Ennyi egymásutáni OK kell a sikerhez"
+    description: "How many consecutive OKs are required for success"
     required: false
     default: "2"
+  headers:
+    description: "Optional HTTP headers (newline-separated, e.g., 'Authorization: Bearer ***')"
+    required: false
+    default: ""
+  expect_status:
+    description: "Expected HTTP status code"
+    required: false
+    default: "200"
+
 runs:
   using: "composite"
   steps:
     - shell: bash
       run: |
         set -euo pipefail
+
         url='${{ inputs.url }}'
         method='${{ inputs.method }}'
         pattern='${{ inputs.success_pattern }}'
-        tries=${{ inputs.tries }}
-        interval=${{ inputs.interval_seconds }}
-        need=${{ inputs.consecutive_required }}
+        tries='${{ inputs.tries }}'
+        interval='${{ inputs.interval_seconds }}'
+        need='${{ inputs.consecutive_required }}'
+        expect='${{ inputs.expect_status }}'
+
+        # Build curl header switches from newline-separated input
+        hdrs=$(printf '%s\n' "${{ inputs.headers }}" | sed '/^[[:space:]]*$/d;s/^/-H /')
 
         echo "::group::Resonant feedback polling"
+        echo "Target: $url"
+        echo "Method: $method"
+        echo "Expect HTTP: $expect"
+        echo "Consecutive required: $need"
+        echo "Max tries: $tries, interval: ${interval}s"
+
         streak=0
         for i in $(seq 1 "$tries"); do
-          echo "Try $i/$tries ..."
-          resp="$(curl -sS -X "$method" "$url" || true)"
-          if [[ "$resp" =~ $pattern ]]; then
+          echo "Try $i/$tries …"
+          # Capture HTTP status and body separately
+          resp="$(curl -sS -w ' HTTP_STATUS:%{http_code}' -X "$method" $hdrs "$url" || true)"
+          body="${resp% HTTP_STATUS:*}"
+          code="${resp##*HTTP_STATUS:}"
+
+          # Status + regex check
+          if [[ "$code" == "$expect" ]] && [[ "$body" =~ $pattern ]]; then
             ((streak++))
-            echo "OK ($streak/${need})"
+            echo "OK ($streak/$need)"
           else
-            echo "NOK → streak reset"
+            echo "NOK (status=$code), streak reset"
             streak=0
           fi
+
           if (( streak >= need )); then
-            echo "::notice title=Resonant feedback::Reached ${need} consecutive healthy responses."
+            echo "::notice title=Resonant feedback::Reached $need consecutive healthy responses."
             echo "::endgroup::"
             exit 0
           fi
+
           sleep "$interval"
         done
-        echo "::warning title=Resonant feedback::Never reached ${need} consecutive healthy responses."
+
+        echo "::warning title=Resonant feedback::Never reached $need consecutive healthy responses."
         echo "::endgroup::"
-        exit 1 
+        exit 1
