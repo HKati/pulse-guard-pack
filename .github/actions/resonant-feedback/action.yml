@@ -1,0 +1,60 @@
+name: "Resonant Feedback Hook"
+description: "Egészség-endpoint visszaigazolás: flapping csillapítása (N egymásutáni OK szükséges)."
+inputs:
+  url:
+    description: "Health URL"
+    required: true
+  method:
+    description: "HTTP metódus"
+    required: false
+    default: "GET"
+  success_pattern:
+    description: "Regex, ami az egészséges választ jelzi (pl. '\"status\":\"ok\"')"
+    required: true
+  tries:
+    description: "Összes próbálkozás"
+    required: false
+    default: "5"
+  interval_seconds:
+    description: "Köztes várakozás (s)"
+    required: false
+    default: "5"
+  consecutive_required:
+    description: "Ennyi egymásutáni OK kell a sikerhez"
+    required: false
+    default: "2"
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        url='${{ inputs.url }}'
+        method='${{ inputs.method }}'
+        pattern='${{ inputs.success_pattern }}'
+        tries=${{ inputs.tries }}
+        interval=${{ inputs.interval_seconds }}
+        need=${{ inputs.consecutive_required }}
+
+        echo "::group::Resonant feedback polling"
+        streak=0
+        for i in $(seq 1 "$tries"); do
+          echo "Try $i/$tries ..."
+          resp="$(curl -sS -X "$method" "$url" || true)"
+          if [[ "$resp" =~ $pattern ]]; then
+            ((streak++))
+            echo "OK ($streak/${need})"
+          else
+            echo "NOK → streak reset"
+            streak=0
+          fi
+          if (( streak >= need )); then
+            echo "::notice title=Resonant feedback::Reached ${need} consecutive healthy responses."
+            echo "::endgroup::"
+            exit 0
+          fi
+          sleep "$interval"
+        done
+        echo "::warning title=Resonant feedback::Never reached ${need} consecutive healthy responses."
+        echo "::endgroup::"
+        exit 1
