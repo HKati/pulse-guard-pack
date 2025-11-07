@@ -4,7 +4,11 @@ exclude = [
   "^tel:",
   "^#",
   "localhost",
-  "127.0.0.1"
+  "127.0.0.1",
+
+  # badges / dinamikus képek, privát repón gyakran 404 vagy 302 → lychee fail
+  "^https://img\\.shields\\.io/.*",
+  "^https://github\\.com/.*/actions/workflows/.*badge\\.svg$"
 ]
 
 max-concurrency = 8
