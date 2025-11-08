@@ -1,21 +1,26 @@
 name: Docs link check
 
 on:
-  pull_request:
-    paths: ["docs/**", "README.md", ".lychee.toml"]
   push:
     branches: [ main ]
-    paths: ["docs/**", "README.md", ".lychee.toml"]
-  schedule:
-    - cron: "17 3 * * 1"   # Weekly, Mondays 03:17 UTC
-  workflow_dispatch:
+    paths:
+      - "docs/**"
+      - "README.md"
+      - ".lychee.toml"
+  # Ha pull requestekre is futtatni akarod, add vissza ezt:
+  # pull_request:
+  #   paths:
+  #     - "docs/**"
+  #     - "README.md"
+  #     - ".lychee.toml"
 
 permissions:
   contents: read
 
-concurrency:
-  group: docs-lychee-${{ github.ref }}
-  cancel-in-progress: true
+# opcionálisan concurrency fallback-kel, lásd korábbi üzenet
+# concurrency:
+#   group: docs-lychee-${{ github.ref || github.run_id }}
+#   cancel-in-progress: true
 
 jobs:
   lychee:
@@ -25,6 +30,6 @@ jobs:
       - name: Link check (lychee)
         uses: lycheeverse/lychee-action@v1
         with:
-          args: --verbose --config .lychee.toml "docs/**/*.md" "README.md"
+          args: --verbose --no-include-verbatim --config .lychee.toml "docs/**/*.md" "README.md"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
