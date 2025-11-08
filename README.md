@@ -40,26 +40,26 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
 ## Quickstart (GitHub Actions — 1 line)
 
-Create: `.github/workflows/secret-leak-guard.yml`
+## Example usage in a consumer repository
 
 ```yaml
-name: guard
+name: Example - Pulse Guard Pack
+
 on:
-  pull_request:
+  push:
     branches: [ main ]
+  pull_request:
+
 jobs:
   guard:
     permissions:
       contents: read
-    # security-events: write  # only if you upload SARIF to Code Scanning
+      security-events: write   # only needed when uploading SARIF to Code Scanning
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
     with:
-      fail-on-find: true
-      scan-history: false
-```
-
----
-
+      fail-on-find: true       # fail the build when a secret is found
+      scan-history: false      # set true to scan full git history (slower)
+      extra_args: ""           # pass extra Gitleaks arguments if needed
 
 ---
 
