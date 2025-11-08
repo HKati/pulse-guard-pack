@@ -7,7 +7,7 @@ on:
       - "docs/**"
       - "README.md"
       - ".lychee.toml"
-  # Ha pull requestekre is futtatni akarod, add vissza ezt:
+  # If you also want to run on pull requests, uncomment this section:
   # pull_request:
   #   paths:
   #     - "docs/**"
@@ -17,7 +17,7 @@ on:
 permissions:
   contents: read
 
-# opcionálisan concurrency fallback-kel, lásd korábbi üzenet
+# Optional concurrency fallback to avoid syntax errors on manual runs:
 # concurrency:
 #   group: docs-lychee-${{ github.ref || github.run_id }}
 #   cancel-in-progress: true
