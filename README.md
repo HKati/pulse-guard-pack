@@ -22,7 +22,8 @@
 
 
 [![Docs link check](https://github.com/HKati/pulse-guard-pack/actions/workflows/docs-link-check.yml/badge.svg)](./.github/workflows/docs-link-check.yml)
-[![Release](https://img.shields.io/github/v/release/HKati/pulse-guard-pack)](../../releases)
+[![Release](https://img.shields.io/badge/release-@v1-blue)](https://github.com/HKati/pulse-guard-pack/tree/v1)
+
 
 See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
@@ -58,6 +59,7 @@ permissions:
 jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+
 
 ---
 
