@@ -40,26 +40,23 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
 ## Quickstart (GitHub Actions — 1 line)
 
-## Example usage in a consumer repository
 
-```yaml
-name: Example - Pulse Guard Pack
+➊ A blokk **eleje**: ```yaml  
+➋ A blokk **vége**: egy külön sorban **csak** ``` (három backtick).  
+➌ A záró ``` **után** tegyél **egy üres sort**, és csak utána jöjjön a következő `---` vagy `##` címsor.
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
+## Miért nyelte be eddig?
+- A záró ``` hiányzott / rossz helyen volt → a parser „nyitottnak” látta a fence-et, és mindent kódnak vett alatta.  
+- Olykor egy rejtett formázó jel (pl. okos idéző, nem sima backtick) is okozhatja. Ellenőrizd, hogy **három sima backtick** ( ` ) van, nem „´” vagy „ˋ”.
 
-jobs:
-  guard:
-    permissions:
-      contents: read
-      security-events: write   # only needed when uploading SARIF to Code Scanning
-    uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
-    with:
-      fail-on-find: true       # fail the build when a secret is found
-      scan-history: false      # set true to scan full git history (slower)
-      extra_args: ""           # pass extra Gitleaks arguments if needed
+## Gyors ellenőrzőlista
+- [ ] A `Install:` fejezetben lévő kódrész **külön** nyitó- és záró fence-et kapott.  
+- [ ] Az „Example usage…” blokk **pont úgy** zárul, mint fent (külön sorban a három backtick).  
+- [ ] A zárás után **üres sor**, majd csak utána `---` vagy új `##` heading.
+
+## Commit szöveg
+**Commit message**
+
 
 ---
 
