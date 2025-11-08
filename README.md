@@ -1,4 +1,4 @@
-[![Secret leak guard](https://github.com/<owner>/pulse-guard-pack/actions/workflows/self_test.yml/badge.svg)](…)
+[![Secret leak guard](https://github.com/<owner>/pulse-guard- pack/actions/workflows/self_test.yml/badge.svg)](…)
 
 
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
