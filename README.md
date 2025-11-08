@@ -59,7 +59,7 @@ permissions:
 jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
-````yaml
+
 
 ---
 
