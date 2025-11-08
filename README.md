@@ -40,25 +40,9 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
 ## Quickstart (GitHub Actions — 1 line)
 
+> Paste this into a workflow file in your repo (e.g. `.github/workflows/guard.yml`).
 
-➊ A blokk **eleje**: ```yaml  
-➋ A blokk **vége**: egy külön sorban **csak** ``` (három backtick).  
-➌ A záró ``` **után** tegyél **egy üres sort**, és csak utána jöjjön a következő `---` vagy `##` címsor.
-
-## Miért nyelte be eddig?
-- A záró ``` hiányzott / rossz helyen volt → a parser „nyitottnak” látta a fence-et, és mindent kódnak vett alatta.  
-- Olykor egy rejtett formázó jel (pl. okos idéző, nem sima backtick) is okozhatja. Ellenőrizd, hogy **három sima backtick** ( ` ) van, nem „´” vagy „ˋ”.
-
-## Gyors ellenőrzőlista
-- [ ] A `Install:` fejezetben lévő kódrész **külön** nyitó- és záró fence-et kapott.  
-- [ ] Az „Example usage…” blokk **pont úgy** zárul, mint fent (külön sorban a három backtick).  
-- [ ] A zárás után **üres sor**, majd csak utána `---` vagy új `##` heading.
-
-## Commit szöveg
-**Commit message**
-
----
-
+```yaml
 name: Example - Pulse Guard Pack
 
 on:
@@ -68,7 +52,8 @@ on:
 
 permissions:
   contents: read
-  security-events: write
+  actions: read            # needed on private repos for SARIF upload metadata
+  security-events: write   # needed to upload SARIF to Code Scanning
 
 jobs:
   guard:
