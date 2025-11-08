@@ -57,6 +57,22 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 ## Commit szöveg
 **Commit message**
 
+---
+
+name: Example - Pulse Guard Pack
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  guard:
+    uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
 
 ---
 
