@@ -1,11 +1,14 @@
 name: Guard self-test
+
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+# Permissions for uploading SARIF and reading this run on a private repo
 permissions:
   contents: read
+  actions: read          # <- required so upload-sarif can read workflow run metadata
   security-events: write
 
 concurrency:
@@ -16,6 +19,7 @@ jobs:
   selftest:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
     env:
       SARIF_PATH: selftest-gitleaks.sarif
 
@@ -23,7 +27,6 @@ jobs:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
 
-      # Gitleaks futtatása – SOHA ne bukjon (|| true)
       - name: Run Gitleaks (binary, non-failing)
         shell: bash
         run: |
@@ -43,3 +46,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ env.SARIF_PATH }}
+        continue-on-error: true  # soften transient API issues on private repos
