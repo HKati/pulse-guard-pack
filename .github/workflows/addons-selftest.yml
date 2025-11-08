@@ -1,11 +1,9 @@
-
 name: Guard self-test
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-# Grant permissions to the CALLED reusable workflow (for SARIF upload)
 permissions:
   contents: read
   security-events: write
@@ -15,7 +13,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ⬇️ Reusable workflowot JOB-SZINTEN hívunk, nem step-ként
   selftest:
-    uses: ./.github/workflows/secret-leak-guard.yml
-    secrets: inherit   # ha később bármi secret kellene, örökölje
+    uses: ./.github/workflows/secret-leak-guard.yml   # job-szinten (!)
+    secrets: inherit
