@@ -43,7 +43,7 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
 > Paste this into a workflow file in your repo (e.g. `.github/workflows/guard.yml`).
 
-```yaml
+~~~yaml
 name: Example - Pulse Guard Pack
 
 on:
@@ -59,8 +59,10 @@ permissions:
 jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+~~~
 
----
+
+
 
 ---
 
