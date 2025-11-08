@@ -5,20 +5,22 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   scan:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      # Download and install the gitleaks CLI
-      - name: Install gitleaks
-        run: |
-          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz \
-          | tar -xz -C /usr/local/bin gitleaks
-      # Run gitleaks with the same flags as before
-      - name: Run gitleaks
-        run: gitleaks detect --redact --no-git -s . --exit-code 1
+
+      # Run the official Gitleaks action. It installs the CLI and scans the repo.
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          # Required: allows the action to access the repository for scanning.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: provide a license if scanning under a paid plan.
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
