@@ -60,6 +60,9 @@ permissions:
 jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+# with:
+#   extra_args: "--config-path .gitleaks.toml"
+
 ~~~
 
 > **Note:** `security-events: write` is only required if you upload SARIF to Code Scanning.  
