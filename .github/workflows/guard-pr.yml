@@ -1,0 +1,53 @@
+name: Guard (PR)
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+  security-events: write
+
+jobs:
+  scan:
+    name: Secret & policy scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Gitleaks futtatása (telepítés nélkül, hivatalos action)
+      - name: Run Gitleaks
+        id: gitleaks
+        uses: zricethezav/gitleaks-action@v2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Opcionális: fizetős licenc kulcs, ha van:
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+        with:
+          args: >
+            detect
+            --source .
+            --no-banner
+            --report-format sarif
+            --report-path gitleaks.sarif
+
+      # SARIF feltöltés a Code Scanninghez (ha van riport)
+      - name: Upload SARIF
+        if: always() && hashFiles('gitleaks.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: gitleaks.sarif
+
+      # Találat esetén bukjunk meg (fail-closed)
+      - name: Fail if leaks found
+        if: steps.gitleaks.outcome != 'success'
+        run: |
+          echo "Gitleaks findings detected. Failing the job." >&2
+          exit 1
