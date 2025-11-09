@@ -100,6 +100,12 @@ Place in repo root:
 
 Then pass it via `extra_args: "--config-path .gitleaks.toml"`.
 
+#### Triage quick-guide (false positives)
+
+- **Finding → Verify** the match and file path.  
+- If benign, **add a targeted allowlist** (regex **+** path) in `.gitleaks.toml`.  
+- **Never** use broad/global allows; keep them **scoped** to tests/examples only.
+
 ### Developer‑side prevention (pre‑commit)
 
 `.pre-commit-config.yaml`:
