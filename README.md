@@ -288,9 +288,9 @@ Secrets leak most often by accident. A lightweight guard that is **default‑san
 
 
 
-## Maintainers & Contact
-
+**Maintainers & Contact**  
 Maintained by **EPLabsAI**.
 
-- 🐞 Issues & feature requests: [GitHub Issues](./issues)
-- 🔐 Security: see our [SECURITY.md](./SECURITY.md) and use GitHub **Private vulnerability reporting**.
+- 🐞 Issues & feature requests: GitHub Issues  
+- 🔐 Security: see **SECURITY.md** and use GitHub **Private vulnerability reporting**.
+
