@@ -272,9 +272,11 @@ Apache License 2.0. See `LICENSE`.
 
 ---
 
-## Why this exists (opinion)
+### Why this exists (opinion)
 
-Secrets leak most often by accident. A lightweight guard that is **default‑sane**, **deterministic**, and **fast** removes a whole class of incidents without taxing teams. This pack keeps risk low and adoption low‑friction: one line on GitHub; portable elsewhere.
+Secrets leak most often by accident. A lightweight guard that is default-sane, deterministic, and fast removes an entire class of incidents without taxing teams.  
+This pack keeps risk low and adoption low-friction: one line on GitHub; portable elsewhere.  
+Logs are redacted, no repository secrets are required, and defaults are safe for everyday use.
 
 ---
 
