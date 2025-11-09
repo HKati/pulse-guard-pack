@@ -62,6 +62,9 @@ jobs:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
 ~~~
 
+> **Note:** `security-events: write` is only required if you upload SARIF to Code Scanning.  
+> For fast default runs, it is not needed.
+
 ---
 
 #### CI-ergonomics (optional)
