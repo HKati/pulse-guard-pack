@@ -68,10 +68,11 @@ jobs:
 
 To avoid duplicate concurrent runs on the same branch or pull request, add a concurrency guard to your workflow:
 
-```yaml
+~~~yaml
 concurrency:
   group: guard-${{ github.ref }}
   cancel-in-progress: true
+~~~
 
 ---
 
