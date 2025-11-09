@@ -20,6 +20,7 @@
 > **Why now.** Secret leaks happen even to great teams. Shipping a *default‑sane*, opt‑in guard reduces risk without slowing velocity.
 
 <!-- Feature strip (compatibility & policy) -->
+
 ![license](https://img.shields.io/github/license/HKati/pulse-guard-pack)
 ![works with GitHub](https://img.shields.io/badge/works%20with-GitHub-informational)
 ![works with GitLab](https://img.shields.io/badge/works%20with-GitLab-informational)
