@@ -288,9 +288,3 @@ jobs:
     # uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@<commit-sha>
 
 
-**Maintainers & Contact**  
-Maintained by **EPLabsAI**.
-
-- 🐞 Issues & feature requests: GitHub Issues
-- 🔐 Security: see **SECURITY.md** and use GitHub **Private vulnerability reporting**.
-
