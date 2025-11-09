@@ -1,0 +1,25 @@
+name: Full history secret scan (one-shot)
+on: { workflow_dispatch: {} }
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }   # full git history
+      - name: Run Gitleaks (full history)
+        run: |
+          set -euo pipefail
+          ver="8.24.3"
+          curl -sSL -o gl.tgz "https://github.com/gitleaks/gitleaks/releases/download/v${ver}/gitleaks_${ver}_linux_x64.tar.gz"
+          tar -xzf gl.tgz gitleaks && chmod +x gitleaks
+          ./gitleaks detect --no-banner --log-opts="--all" \
+            --report-format sarif --report-path full-history.sarif || true
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: full-history.sarif }
