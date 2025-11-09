@@ -1,6 +1,5 @@
+
 [![Secret leak guard](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml)
-[![CI](https://img.shields.io/github/checks-status/HKati/pulse-guard-pack/main)](https://github.com/HKati/pulse-guard-pack/actions)
-[![Secret leak guard](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml)<br>
 [![CI](https://img.shields.io/github/checks-status/HKati/pulse-guard-pack/main)](https://github.com/HKati/pulse-guard-pack/actions)
 
 
