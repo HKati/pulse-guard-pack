@@ -14,14 +14,13 @@
        alt="Pulse Guard Pack — boxed secrets & secret-leak guard (PULSE)"
        width="900">
 </p>
-[![license](https://img.shields.io/github/license/HKati/pulse-guard-pack)](LICENSE)
 > **Purpose.** Prevent accidental API‑key commits with minimal friction.  
 > **Who for.** Any team adopting CI/CD (with or without GitHub Advanced Security).  
 > **Why now.** Secret leaks happen even to great teams. Shipping a *default‑sane*, opt‑in guard reduces risk without slowing velocity.
 
 <!-- Feature strip (compatibility & policy) -->
 
-
+[![license](https://img.shields.io/github/license/HKati/pulse-guard-pack)](LICENSE)
 ![works with GitHub](https://img.shields.io/badge/works%20with-GitHub-informational)
 ![works with GitLab](https://img.shields.io/badge/works%20with-GitLab-informational)
 ![works with Jenkins](https://img.shields.io/badge/works%20with-Jenkins-informational)
