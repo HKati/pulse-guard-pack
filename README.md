@@ -62,6 +62,7 @@ jobs:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
 ~~~
 
+---
 
 #### CI-ergonomics (optional)
 
