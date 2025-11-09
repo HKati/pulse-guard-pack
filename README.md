@@ -287,6 +287,7 @@ jobs:
     # Optional: pin to a commit SHA for regulated environments
     # uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@<commit-sha>
 
+
 ---
 
 
