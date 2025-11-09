@@ -19,12 +19,14 @@
 > **Who for.** Any team adopting CI/CD (with or without GitHub Advanced Security).  
 > **Why now.** Secret leaks happen even to great teams. Shipping a *default‑sane*, opt‑in guard reduces risk without slowing velocity.
 
-![license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)
-![status](https://img.shields.io/badge/gh-actions-reusable%20workflow-brightgreen.svg)
-![ecosystem](https://img.shields.io/badge/works%20with-GitHub%20%7C%20GitLab%20%7C%20Jenkins%20%7C%20Azure-6aa84f.svg)
-[![Security Policy](https://img.shields.io/badge/security-policy-blue)](./SECURITY.md)
-[![Docs link check](https://github.com/HKati/pulse-guard-pack/actions/workflows/docs-link-check.yml/badge.svg)](./.github/workflows/docs-link-check.yml)
-[![Release](https://img.shields.io/badge/release-@v1-blue)](https://github.com/HKati/pulse-guard-pack/tree/v1)
+<!-- Feature strip (compatibility & policy) -->
+![license](https://img.shields.io/github/license/HKati/pulse-guard-pack)
+![works with GitHub](https://img.shields.io/badge/works%20with-GitHub-informational)
+![works with GitLab](https://img.shields.io/badge/works%20with-GitLab-informational)
+![works with Jenkins](https://img.shields.io/badge/works%20with-Jenkins-informational)
+![works with Azure Pipelines](https://img.shields.io/badge/works%20with-Azure%20Pipelines-informational)
+[![security policy](https://img.shields.io/badge/security-policy-blue)](./SECURITY.md)
+
 
 
 See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
