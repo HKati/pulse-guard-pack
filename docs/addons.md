@@ -16,6 +16,7 @@ Filters flapping status transitions by polling a health endpoint multiple times.
     tries: 5
     interval_seconds: 10
     consecutive_required: 2
+```
 
 ---
 
@@ -30,6 +31,7 @@ A simple JSONL-based audit log that records key decision points in a pipeline.
     event: gitleaks
     status: ${{ job.status }}
     data: ${{ toJson(steps.gitleaks.outputs) }}
+```
 
 ---
 
@@ -43,6 +45,7 @@ Marks “gaps” in the DPM timeline with dedicated records, making the event st
   with:
     source: artifacts/pulse_dpm.jsonl
     threshold_seconds: 90
+```
 
 ---
 
@@ -85,4 +88,4 @@ Configured using `.lychee.toml` and triggered by the workflow:
   with:
     source: artifacts/pulse_dpm.jsonl
     threshold_seconds: 90
-
+```
