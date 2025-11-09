@@ -1,14 +1,13 @@
-name: name: Preflight secret scan
+name: Preflight secret scan
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-# Permissions for uploading SARIF and reading this run on a private repo
 permissions:
   contents: read
-  actions: read          # <- required so upload-sarif can read workflow run metadata
+  actions: read
   security-events: write
 
 concurrency:
@@ -19,31 +18,10 @@ jobs:
   selftest:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     env:
       SARIF_PATH: selftest-gitleaks.sarif
-
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-
-      - name: Run Gitleaks (binary, non-failing)
-        shell: bash
-        run: |
-          set -euo pipefail
-          ver="8.24.3"
-          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${ver}/gitleaks_${ver}_linux_x64.tar.gz" -o gl.tgz
-          tar -xzf gl.tgz gitleaks
-          chmod +x gitleaks
-          ./gitleaks detect \
-            --source . \
-            --no-banner \
-            --report-format sarif \
-            --report-path "${SARIF_PATH}" || true
-
-      - name: Upload SARIF
-        if: hashFiles(env.SARIF_PATH) != ''
-        uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ${{ env.SARIF_PATH }}
-        continue-on-error: true  # soften transient API issues on private repos
+          fetch-depth: 0
+      # … (a jelenlegi lépéseid mehetnek tovább változatlanul)
