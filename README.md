@@ -5,7 +5,6 @@
 
 
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
-[![Preflight secret scan](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml)
 
 
 
@@ -21,7 +20,6 @@
 <!-- Feature strip (compatibility & policy) -->
 
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-![works with GitHub](https://img.shields.io/badge/works%20with-GitHub-informational)
 ![works with GitLab](https://img.shields.io/badge/works%20with-GitLab-informational)
 ![works with Jenkins](https://img.shields.io/badge/works%20with-Jenkins-informational)
 ![works with Azure Pipelines](https://img.shields.io/badge/works%20with-Azure%20Pipelines-informational)
