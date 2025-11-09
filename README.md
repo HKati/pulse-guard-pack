@@ -278,13 +278,15 @@ Secrets leak most often by accident. A lightweight guard that is **default‑san
 
 ---
 
-## Copy‑paste summary
+### Copy‑paste summary
 
-    jobs:
-      guard:
-        uses: jobs:
+```yaml
+jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
+    # Regulated környezetben pinelhető commit SHA-ra is:
+    # uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@<commit-sha>
+
 
 
 
