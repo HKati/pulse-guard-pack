@@ -280,19 +280,22 @@ Secrets leak most often by accident. A lightweight guard that is **default‑san
 
 ### Copy-paste summary
 
-```yaml
+~~~yaml
 jobs:
   guard:
     uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@v1
     # Optional: pin to a commit SHA for regulated environments
     # uses: HKati/pulse-guard-pack/.github/workflows/secret-leak-guard.yml@<commit-sha>
+~~~
+
+### Maintainers & Contact
+
+Maintained by EPLabsAI.
+
+🐞 Issues & feature requests: GitHub Issues  
+🔐 Security: see SECURITY.md and use GitHub Private vulnerability reporting.
 
 
-**Maintainers & Contact**  
-Maintained by **EPLabsAI**.
-
-- 🐞 Issues & feature requests: GitHub Issues
-- 🔐 Security: see **SECURITY.md** and use GitHub **Private vulnerability reporting**.
 
 
 
