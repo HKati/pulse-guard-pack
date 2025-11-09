@@ -315,11 +315,11 @@ jobs:
 
 ## Maintainers & Contact
 
-Maintained by [EPLabs AI](https://github.com/EPLabsAI).
+Maintained by EPLabsAI.
 
 - 🐞 Issues & feature requests: [GitHub Issues](https://github.com/HKati/pulse-guard-pack/issues)
-
 - 🔐 Security: see [SECURITY.md](SECURITY.md) and use GitHub Private vulnerability reporting.
+
 
 
 
