@@ -1,4 +1,4 @@
-name: Guard self-test
+name: name: Preflight secret scan
 
 on:
   push:
