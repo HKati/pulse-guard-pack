@@ -17,11 +17,6 @@ Filters flapping status transitions by polling a health endpoint multiple times.
     interval_seconds: 10
     consecutive_required: 2
 
-# Add-ons (Optional)
-
-These modules do not change the core secret-protection logic but improve
-developer experience (DX) and audit visibility.
-
 ---
 
 ## 1) Resonant Feedback Hook
