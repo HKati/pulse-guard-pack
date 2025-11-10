@@ -1,3 +1,6 @@
+> **Status: maintenance (temporary)**
+> We are stabilizing CI/ruleset checks. Badges may flicker for a short time.
+> The code is stable; merges are restricted by branch protection until we finish.
 
 # Pulse Guard Pack — boxed secrets & secret‑leak guard
 
