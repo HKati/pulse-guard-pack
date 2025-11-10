@@ -27,6 +27,8 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 [![security policy](https://img.shields.io/badge/security-policy-blue)](SECURITY.md)
 
+> **Cite:** This module is part of the Pulse project. Please cite the Pulse concept DOI:  
+> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17214908.svg)](https://doi.org/10.5281/zenodo.17214908)
 
 ---
 
