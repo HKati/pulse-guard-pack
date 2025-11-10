@@ -29,6 +29,16 @@
 
 See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
+[![Secret leak guard](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml)
+[![Preflight secret scan](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml)
+
+[![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
+![works with GitHub](https://img.shields.io/badge/works%20with%20GitHub-informational)
+![works with GitLab](https://img.shields.io/badge/works%20with%20GitLab-informational)
+![works with Jenkins](https://img.shields.io/badge/works%20with%20Jenkins-informational)
+![works with Azure Pipelines](https://img.shields.io/badge/works%20with%20Azure%20Pipelines-informational)
+[![security policy](https://img.shields.io/badge/security-policy-blue)](SECURITY.md)
+
 ---
 
 ## Features at a glance
