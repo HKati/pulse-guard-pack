@@ -1,5 +1,6 @@
-name: "Memory Gap Patcher"
-description: "Idősor-naplóban (DPM JSONL) kimaradt szakaszok jelölése gap rekorddal."
+name: Memory gap patcher
+description: "Idősor-naplóban (DPM JSONL) kimaradt szakaszok jelölése 'gap' rekordokkal (robust)"
+
 inputs:
   source:
     description: "Forrás JSONL (DPM)"
@@ -13,50 +14,82 @@ inputs:
     description: "Küszöb (ennél nagyobb rés esetén beszúrunk 'gap'-et)"
     required: false
     default: "90"
+
 runs:
   using: "composite"
   steps:
     - shell: bash
       run: |
         set -euo pipefail
+
         src='${{ inputs.source }}'
         out='${{ inputs.output }}'
-        thr='${{ inputs.threshold_seconds }}'
+        thr_raw='${{ inputs.threshold_seconds }}'
+
         mkdir -p "$(dirname "$out")"
-        python - <<'PY' "$src" "$out" "$thr"
-        import sys, json, datetime as dt, os
-        src, out, thr = sys.argv[1], sys.argv[2], int(sys.argv[3])
-        def parse_ts(s):
-            # 2025-01-02T03:04:05Z
-            return dt.datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
-        recs = []
+
+        python - <<'PY' "$src" "$out" "$thr_raw"
+        import sys, json, os, datetime as dt
+
+        src, out, thr_raw = sys.argv[1:]
+
+        # Küszöb: float is mehet; hibánál 0; negatívnál is legalább 0
+        try:
+            thr = max(0, int(float(thr_raw)))
+        except (ValueError, TypeError):
+            thr = 0
+
+        def parse_ts(ts: str) -> dt.datetime:
+            # Szigorú ISO8601 'Z' formátum, pl.: 2025-01-02T03:04:05Z
+            return dt.datetime.strptime(ts, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+
+        # Beolvasás: csak érvényes JSON és érvényes 'ts' (ISO 'Z') marad
+        records = []
         if os.path.exists(src):
             with open(src, "r", encoding="utf-8") as f:
                 for line in f:
-                    if line.strip():
-                        try:
-                            recs.append(json.loads(line))
-                        except Exception:
-                            pass
-        recs.sort(key=lambda r: r.get("ts", ""))
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        data = json.loads(line)
+                    except Exception:
+                        continue
+
+                    ts = data.get("ts")
+                    if not isinstance(ts, str):
+                        continue
+                    try:
+                        ts_parsed = parse_ts(ts)
+                    except Exception:
+                        continue
+
+                    records.append((ts_parsed, data))
+
+        # Kronológiai rendezés a parszolt időpont alapján
+        records.sort(key=lambda x: x[0])
+
+        # Patched kimenet: eredeti rekordok + szükséges 'gap' beszúrások
         patched = []
-        for i, r in enumerate(recs):
-            patched.append(r)
-            if i+1 < len(recs):
-                t1 = parse_ts(r["ts"])
-                t2 = parse_ts(recs[i+1]["ts"])
-                gap = int((t2 - t1).total_seconds())
+        for i, (ts_curr, rec) in enumerate(records):
+            patched.append(rec)
+            if i + 1 < len(records):
+                ts_next, next_rec = records[i + 1]
+                gap = int((ts_next - ts_curr).total_seconds())
                 if gap > thr:
                     patched.append({
-                        "ts": t1.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "ts": ts_curr.strftime("%Y-%m-%dT%H:%M:%SZ"),
                         "event": "gap",
                         "status": "patched",
                         "gap_seconds": gap,
-                        "from": r["ts"],
-                        "to": recs[i+1]["ts"]
+                        "from": rec.get("ts"),
+                        "to": next_rec.get("ts"),
                     })
+
+        # Egyszeri kiírás, duplikációk nélkül
         with open(out, "w", encoding="utf-8") as f:
-            for r in patched:
-                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+            for item in patched:
+                f.write(json.dumps(item, ensure_ascii=False) + "\n")
         PY
-        echo "Patched log → ${out}" 
+
+        echo "Patched log → ${out}"
