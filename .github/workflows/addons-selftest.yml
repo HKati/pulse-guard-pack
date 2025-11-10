@@ -34,7 +34,7 @@ jobs:
           ./gitleaks detect --source . --no-banner --report-format sarif --report-path "${SARIF_PATH}" || true
       - name: Upload SARIF
         if: hashFiles(env.SARIF_PATH) != ''
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: ${{ env.SARIF_PATH }}
         continue-on-error: true
