@@ -20,15 +20,12 @@ See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 [![Preflight secret scan](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml)
 
 <!-- Feature strip (compatibility & policy) -->
-[![Secret leak guard](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/secret-leak-guard.yml)
-[![Preflight secret scan](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml/badge.svg?branch=main)](https://github.com/HKati/pulse-guard-pack/actions/workflows/addons-selftest.yml)
+[![works with GitHub Actions](https://img.shields.io/badge/works%20with%20GitHub%20Actions-informational)](https://docs.github.com/actions)
+[![works with GitLab CI](https://img.shields.io/badge/works%20with%20GitLab%20CI-informational)](https://docs.gitlab.com/ee/ci/)
+[![works with Jenkins](https://img.shields.io/badge/works%20with%20Jenkins-informational)](https://www.jenkins.io/doc/book/pipeline/)
+[![works with Azure Pipelines](https://img.shields.io/badge/works%20with%20Azure%20Pipelines-informational)](https://learn.microsoft.com/azure/devops/pipelines/?view=azure-devops)
 [![license: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
-[![works with GitHub](https://img.shields.io/badge/works%20with%20GitHub-informational)](#copy-paste-summary)
-[![works with GitLab](https://img.shields.io/badge/works%20with%20GitLab-informational)](docs/addons.md#gitlab)
-[![works with Jenkins](https://img.shields.io/badge/works%20with%20Jenkins-informational)](#jenkins-declarative-pipeline)
-[![works with Azure Pipelines](https://img.shields.io/badge/works%20with%20Azure%20Pipelines-informational)](#azure-pipelines)
 [![security policy](https://img.shields.io/badge/security-policy-blue)](SECURITY.md)
-
 
 
 ---
