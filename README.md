@@ -17,7 +17,7 @@
 > **Who for.** Any team adopting CI/CD (with or without GitHub Advanced Security).  
 > **Why now.** Secret leaks happen even to great teams. Shipping a *default‑sane*, opt‑in guard reduces risk without slowing velocity.
 
-<!-- Feature strip (compatibility & policy) -
+<!-- Feature strip (compatibility & policy) -->
 
 See **Add-ons (Optional)** guide → [`docs/addons.md`](./docs/addons.md)
 
