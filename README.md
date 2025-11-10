@@ -1,8 +1,11 @@
-> **Status: maintenance (temporary)**
-> We are aligning the required “Secret leak guard” PR check.
-> Badges may appear pending; `main` remains stable.
+**Status: maintenance (temporary)**
 
-# Pulse Guard Pack — boxed secrets & secret‑leak guard
+We are stabilizing CI/ruleset checks. Badges may flicker for a short time.  
+We are aligning the required "Secret leak guard" PR check.  
+The code is stable; `main` remains protected; merges are temporarily restricted by branch protection.
+
+# Pulse Guard Pack – boxed secrets & secret‑leak guard
+
 
 
 
